@@ -1,17 +1,17 @@
 ﻿  graphicsprogrammingtesting.cpp
-C:\Users\bradc\Downloads\graphicsprogrammingtesting\graphicsprogrammingtesting\olcConsoleGameEngine.h(759,13): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\bradc\Downloads\GraphicsProgramming\graphicsprogrammingtesting\graphicsprogrammingtesting\olcConsoleGameEngine.h(759,13): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
   (compiling source file 'graphicsprogrammingtesting.cpp')
   
-C:\Users\bradc\Downloads\graphicsprogrammingtesting\graphicsprogrammingtesting\olcConsoleGameEngine.h(1099,31): warning C4267: 'return': conversion from 'size_t' to 'unsigned int', possible loss of data
+C:\Users\bradc\Downloads\GraphicsProgramming\graphicsprogrammingtesting\graphicsprogrammingtesting\olcConsoleGameEngine.h(1099,31): warning C4267: 'return': conversion from 'size_t' to 'unsigned int', possible loss of data
   (compiling source file 'graphicsprogrammingtesting.cpp')
   
-C:\Users\bradc\Downloads\graphicsprogrammingtesting\graphicsprogrammingtesting\olcConsoleGameEngine.h(1196,4): warning C4312: 'type cast': conversion from 'DWORD' to 'olcConsoleGameEngine *' of greater size
+C:\Users\bradc\Downloads\GraphicsProgramming\graphicsprogrammingtesting\graphicsprogrammingtesting\olcConsoleGameEngine.h(1196,4): warning C4312: 'type cast': conversion from 'DWORD' to 'olcConsoleGameEngine *' of greater size
   (compiling source file 'graphicsprogrammingtesting.cpp')
   
-C:\Users\bradc\Downloads\graphicsprogrammingtesting\graphicsprogrammingtesting\graphicsprogrammingtesting.cpp(177,55): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-C:\Users\bradc\Downloads\graphicsprogrammingtesting\graphicsprogrammingtesting\graphicsprogrammingtesting.cpp(177,34): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-C:\Users\bradc\Downloads\graphicsprogrammingtesting\graphicsprogrammingtesting\graphicsprogrammingtesting.cpp(176,55): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-C:\Users\bradc\Downloads\graphicsprogrammingtesting\graphicsprogrammingtesting\graphicsprogrammingtesting.cpp(176,34): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-C:\Users\bradc\Downloads\graphicsprogrammingtesting\graphicsprogrammingtesting\graphicsprogrammingtesting.cpp(175,64): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-C:\Users\bradc\Downloads\graphicsprogrammingtesting\graphicsprogrammingtesting\graphicsprogrammingtesting.cpp(175,43): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-  graphicsprogrammingtesting.vcxproj -> C:\Users\bradc\Downloads\graphicsprogrammingtesting\x64\Debug\graphicsprogrammingtesting.exe
+C:\Users\bradc\Downloads\GraphicsProgramming\graphicsprogrammingtesting\graphicsprogrammingtesting\graphicsprogrammingtesting.cpp(280,55): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\bradc\Downloads\GraphicsProgramming\graphicsprogrammingtesting\graphicsprogrammingtesting\graphicsprogrammingtesting.cpp(280,34): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\bradc\Downloads\GraphicsProgramming\graphicsprogrammingtesting\graphicsprogrammingtesting\graphicsprogrammingtesting.cpp(279,55): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\bradc\Downloads\GraphicsProgramming\graphicsprogrammingtesting\graphicsprogrammingtesting\graphicsprogrammingtesting.cpp(279,34): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\bradc\Downloads\GraphicsProgramming\graphicsprogrammingtesting\graphicsprogrammingtesting\graphicsprogrammingtesting.cpp(278,64): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\bradc\Downloads\GraphicsProgramming\graphicsprogrammingtesting\graphicsprogrammingtesting\graphicsprogrammingtesting.cpp(278,43): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+  graphicsprogrammingtesting.vcxproj -> C:\Users\bradc\Downloads\GraphicsProgramming\graphicsprogrammingtesting\x64\Debug\graphicsprogrammingtesting.exe

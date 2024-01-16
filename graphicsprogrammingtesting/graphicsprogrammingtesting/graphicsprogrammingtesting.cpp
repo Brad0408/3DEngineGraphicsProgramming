@@ -1,8 +1,8 @@
-// graphicsprogrammingtesting.cpp : This file contains the 'main' function. Program execution begins and ends there.
-//
-
 #include "olcConsoleGameEngine.h"
 #include <iostream>
+#include <fstream>
+#include <strstream>
+#include <algorithm>
 using namespace std;
 
 
@@ -17,12 +17,54 @@ struct triangle
 {
     vec3d p[3];
 
+    wchar_t sym;
+    short col;
+
 };
 
 //Mesh created from triangle
 struct mesh
 {
     vector<triangle> tris;
+
+
+    //Loading file .obj, reading the first value of v and f and do logic
+    bool LoadFromObjectFile(string sFilename)
+    {
+        ifstream f(sFilename);
+        if (!f.is_open())
+            return false;
+
+        // Local cache of verts
+        vector<vec3d> verts;
+
+        while (!f.eof())
+        {
+            char line[128];
+            f.getline(line, 128);
+
+            strstream s;
+            s << line;
+
+            char junk;
+
+            if (line[0] == 'v')
+            {
+                vec3d v;
+                s >> junk >> v.x >> v.y >> v.z;
+                verts.push_back(v);
+            }
+
+            if (line[0] == 'f')
+            {
+                int f[3];
+                s >> junk >> f[0] >> f[1] >> f[2];
+                tris.push_back({ verts[f[0] - 1], verts[f[1] - 1], verts[f[2] - 1] });
+            }
+        }
+
+        return true;
+    }
 
 };
 
@@ -43,38 +85,39 @@ public:
 public:
     bool OnUserCreate() override
     {
-        meshCube.tris = {
+        //meshCube.tris = {
 
-            // SOUTH
-            { 0.0f, 0.0f, 0.0f,    0.0f, 1.0f, 0.0f,    1.0f, 1.0f, 0.0f },
-            { 0.0f, 0.0f, 0.0f,    1.0f, 1.0f, 0.0f,    1.0f, 0.0f, 0.0f },
+        //    // SOUTH
+        //    { 0.0f, 0.0f, 0.0f,    0.0f, 1.0f, 0.0f,    1.0f, 1.0f, 0.0f },
+        //    { 0.0f, 0.0f, 0.0f,    1.0f, 1.0f, 0.0f,    1.0f, 0.0f, 0.0f },
 
-            // EAST                                                      
-            { 1.0f, 0.0f, 0.0f,    1.0f, 1.0f, 0.0f,    1.0f, 1.0f, 1.0f },
-            { 1.0f, 0.0f, 0.0f,    1.0f, 1.0f, 1.0f,    1.0f, 0.0f, 1.0f },
+        //    // EAST                                                      
+        //    { 1.0f, 0.0f, 0.0f,    1.0f, 1.0f, 0.0f,    1.0f, 1.0f, 1.0f },
+        //    { 1.0f, 0.0f, 0.0f,    1.0f, 1.0f, 1.0f,    1.0f, 0.0f, 1.0f },
 
-            // NORTH                                                     
-            { 1.0f, 0.0f, 1.0f,    1.0f, 1.0f, 1.0f,    0.0f, 1.0f, 1.0f },
-            { 1.0f, 0.0f, 1.0f,    0.0f, 1.0f, 1.0f,    0.0f, 0.0f, 1.0f },
+        //    // NORTH                                                     
+        //    { 1.0f, 0.0f, 1.0f,    1.0f, 1.0f, 1.0f,    0.0f, 1.0f, 1.0f },
+        //    { 1.0f, 0.0f, 1.0f,    0.0f, 1.0f, 1.0f,    0.0f, 0.0f, 1.0f },
 
-            // WEST                                                      
-            { 0.0f, 0.0f, 1.0f,    0.0f, 1.0f, 1.0f,    0.0f, 1.0f, 0.0f },
-            { 0.0f, 0.0f, 1.0f,    0.0f, 1.0f, 0.0f,    0.0f, 0.0f, 0.0f },
+        //    // WEST                                                      
+        //    { 0.0f, 0.0f, 1.0f,    0.0f, 1.0f, 1.0f,    0.0f, 1.0f, 0.0f },
+        //    { 0.0f, 0.0f, 1.0f,    0.0f, 1.0f, 0.0f,    0.0f, 0.0f, 0.0f },
 
-            // TOP                                                       
-            { 0.0f, 1.0f, 0.0f,    0.0f, 1.0f, 1.0f,    1.0f, 1.0f, 1.0f },
-            { 0.0f, 1.0f, 0.0f,    1.0f, 1.0f, 1.0f,    1.0f, 1.0f, 0.0f },
+        //    // TOP                                                       
+        //    { 0.0f, 1.0f, 0.0f,    0.0f, 1.0f, 1.0f,    1.0f, 1.0f, 1.0f },
+        //    { 0.0f, 1.0f, 0.0f,    1.0f, 1.0f, 1.0f,    1.0f, 1.0f, 0.0f },
 
-            // BOTTOM                                                    
-            { 1.0f, 0.0f, 1.0f,    0.0f, 0.0f, 1.0f,    0.0f, 0.0f, 0.0f },
-            { 1.0f, 0.0f, 1.0f,    0.0f, 0.0f, 0.0f,    1.0f, 0.0f, 0.0f },
-
-
-
-        };
+        //    // BOTTOM                                                    
+        //    { 1.0f, 0.0f, 1.0f,    0.0f, 0.0f, 1.0f,    0.0f, 0.0f, 0.0f },
+        //    { 1.0f, 0.0f, 1.0f,    0.0f, 0.0f, 0.0f,    1.0f, 0.0f, 0.0f },
 
 
-        //Projection Matrix
+
+        //};
+
+        meshCube.LoadFromObjectFile("VideoShip.obj");
+
+        //Projection Matrix - Makes 3D 2D
         float fNear = 0.1f;
         float fFar = 1000.0f;
         float fFov = 90.0f;
@@ -125,10 +168,10 @@ public:
         matRotX.m[2][2] = cosf(fTheta * 0.5f);
         matRotX.m[3][3] = 1;
 
+        //Storing triangles for rastering later
+        vector<triangle> vecTrianglesToRaster;
 
-
-        //Draw Triangle
-
+        //Draw Triangles
         for (auto tri : meshCube.tris)
         {
             triangle triProjected, triTranslated, triRotatedZ, triRotatedZX;
@@ -145,38 +188,106 @@ public:
 
             //Offset into the screen
             triTranslated = triRotatedZX;
-            triTranslated.p[0].z = triRotatedZX.p[0].z + 3.0f;
-            triTranslated.p[1].z = triRotatedZX.p[1].z + 3.0f;
-            triTranslated.p[2].z = triRotatedZX.p[2].z + 3.0f;
+            triTranslated.p[0].z = triRotatedZX.p[0].z + 8.0f;
+            triTranslated.p[1].z = triRotatedZX.p[1].z + 8.0f;
+            triTranslated.p[2].z = triRotatedZX.p[2].z + 8.0f;
+
+            //Use cross product to get surface normal
+            vec3d normal, line1, line2;
+            line1.x = triTranslated.p[1].x - triTranslated.p[0].x;
+            line1.y = triTranslated.p[1].y - triTranslated.p[0].y;
+            line1.z = triTranslated.p[1].z - triTranslated.p[0].z;
+
+            line2.x = triTranslated.p[2].x - triTranslated.p[0].x;
+            line2.y = triTranslated.p[2].y - triTranslated.p[0].y;
+            line2.z = triTranslated.p[2].z - triTranslated.p[0].z;
+
+            normal.x = line1.y * line2.z - line1.z * line2.y;
+            normal.y = line1.z * line2.x - line1.x * line2.z;
+            normal.z = line1.x * line2.y - line1.y * line2.x;
+
+            //Normalising the normal
+            float l = sqrt(normal.x * normal.x + normal.y * normal.y + normal.z * normal.z);
+            normal.x /= l; normal.y /= l; normal.z /= l;
+
+            //if (normal.z < 0)
+            if (normal.x * (triTranslated.p[0].x - vCamera.x) +
+                normal.y * (triTranslated.p[0].y - vCamera.y) +
+                normal.z * (triTranslated.p[0].z - vCamera.z) < 0.0f)
+            {
+
+                //Illumination
+                vec3d light_direction = { 0.0f, 0.0f, -1.0f }; //Z light pointing towards the player
+                float l = sqrt(light_direction.x * light_direction.x + light_direction.y * light_direction.y + light_direction.z * light_direction.z);
+                light_direction.x /= l; light_direction.y /= l; light_direction.z /= l;
+
+                //How similar is normal to light direction
+                float dp = normal.x * light_direction.x + normal.y * light_direction.y + normal.z * light_direction.z;
+
+                //Choose console colours as required
+                CHAR_INFO c = GetColour(dp);
+                triTranslated.col = c.Attributes;
+                triTranslated.sym = c.Char.UnicodeChar;
 
 
-            //Project from 3D to 2D
-            MultiplyMatrixVector(triTranslated.p[0], triProjected.p[0], matProj);
-            MultiplyMatrixVector(triTranslated.p[1], triProjected.p[1], matProj);
-            MultiplyMatrixVector(triTranslated.p[2], triProjected.p[2], matProj);
-
-            //Scale Into View
-            triProjected.p[0].x += 1.0f; triProjected.p[0].y += 1.0f;
-            triProjected.p[1].x += 1.0f; triProjected.p[1].y += 1.0f;
-            triProjected.p[2].x += 1.0f; triProjected.p[2].y += 1.0f;
-
-            triProjected.p[0].x *= 0.5f * (float)ScreenWidth();
-            triProjected.p[0].y *= 0.5f * (float)ScreenHeight();
-
-            triProjected.p[1].x *= 0.5f * (float)ScreenWidth();
-            triProjected.p[1].y *= 0.5f * (float)ScreenHeight();
-
-            triProjected.p[2].x *= 0.5f * (float)ScreenWidth();
-            triProjected.p[2].y *= 0.5f * (float)ScreenHeight();
 
 
+                //Project from 3D to 2D
+                MultiplyMatrixVector(triTranslated.p[0], triProjected.p[0], matProj);
+                MultiplyMatrixVector(triTranslated.p[1], triProjected.p[1], matProj);
+                MultiplyMatrixVector(triTranslated.p[2], triProjected.p[2], matProj);
+                triProjected.col = triTranslated.col;
+                triProjected.sym = triTranslated.sym;
+                
 
+                //Scale Into View
+                triProjected.p[0].x += 1.0f; triProjected.p[0].y += 1.0f;
+                triProjected.p[1].x += 1.0f; triProjected.p[1].y += 1.0f;
+                triProjected.p[2].x += 1.0f; triProjected.p[2].y += 1.0f;
+
+                triProjected.p[0].x *= 0.5f * (float)ScreenWidth();
+                triProjected.p[0].y *= 0.5f * (float)ScreenHeight();
+
+                triProjected.p[1].x *= 0.5f * (float)ScreenWidth();
+                triProjected.p[1].y *= 0.5f * (float)ScreenHeight();
+
+                triProjected.p[2].x *= 0.5f * (float)ScreenWidth();
+                triProjected.p[2].y *= 0.5f * (float)ScreenHeight();
+
+                //Store triangle for sorting
+                vecTrianglesToRaster.push_back(triProjected);
+
+      
+            }
+
+        }
+
+        //Sort Triangles from back to front
+        sort(vecTrianglesToRaster.begin(), vecTrianglesToRaster.end(), [](triangle& t1, triangle& t2)
+        {
+                float z1 = (t1.p[0].z + t1.p[1].z + t1.p[2].z) / 3.0f;
+                float z2 = (t2.p[0].z + t2.p[1].z + t2.p[2].z) / 3.0f;
+                return z1 > z2;
+        
+        });
+
+
+        for (auto &triProjected : vecTrianglesToRaster)
+        {
             //Resterize Triangle
-            DrawTriangle(triProjected.p[0].x, triProjected.p[0].y,
+            FillTriangle(triProjected.p[0].x, triProjected.p[0].y,
                 triProjected.p[1].x, triProjected.p[1].y,
                 triProjected.p[2].x, triProjected.p[2].y,
-                PIXEL_SOLID, FG_WHITE);
+                triProjected.sym, triProjected.col);
+
+            //Debug Wireframe
+            //DrawTriangle(triProjected.p[0].x, triProjected.p[0].y,
+            //    triProjected.p[1].x, triProjected.p[1].y,
+            //    triProjected.p[2].x, triProjected.p[2].y,
+            //    PIXEL_SOLID, FG_BLACK);
+
         }
+
 
         return true;
     }
@@ -184,6 +295,11 @@ public:
 private:
     mesh meshCube;
     mat4x4 matProj;
+
+    vec3d vCamera;
+
+
+
     
     float fTheta;
 
@@ -199,6 +315,41 @@ private:
         {
             o.x /= w; o.y /= w; o.z /= w;
         }
+    }
+
+
+    // Taken From Command Line Webcam Video
+    CHAR_INFO GetColour(float lum)
+    {
+        short bg_col, fg_col;
+        wchar_t sym;
+        int pixel_bw = (int)(13.0f * lum);
+        switch (pixel_bw)
+        {
+        case 0: bg_col = BG_BLACK; fg_col = FG_BLACK; sym = PIXEL_SOLID; break;
+
+        case 1: bg_col = BG_BLACK; fg_col = FG_DARK_GREY; sym = PIXEL_QUARTER; break;
+        case 2: bg_col = BG_BLACK; fg_col = FG_DARK_GREY; sym = PIXEL_HALF; break;
+        case 3: bg_col = BG_BLACK; fg_col = FG_DARK_GREY; sym = PIXEL_THREEQUARTERS; break;
+        case 4: bg_col = BG_BLACK; fg_col = FG_DARK_GREY; sym = PIXEL_SOLID; break;
+
+        case 5: bg_col = BG_DARK_GREY; fg_col = FG_GREY; sym = PIXEL_QUARTER; break;
+        case 6: bg_col = BG_DARK_GREY; fg_col = FG_GREY; sym = PIXEL_HALF; break;
+        case 7: bg_col = BG_DARK_GREY; fg_col = FG_GREY; sym = PIXEL_THREEQUARTERS; break;
+        case 8: bg_col = BG_DARK_GREY; fg_col = FG_GREY; sym = PIXEL_SOLID; break;
+
+        case 9:  bg_col = BG_GREY; fg_col = FG_WHITE; sym = PIXEL_QUARTER; break;
+        case 10: bg_col = BG_GREY; fg_col = FG_WHITE; sym = PIXEL_HALF; break;
+        case 11: bg_col = BG_GREY; fg_col = FG_WHITE; sym = PIXEL_THREEQUARTERS; break;
+        case 12: bg_col = BG_GREY; fg_col = FG_WHITE; sym = PIXEL_SOLID; break;
+        default:
+            bg_col = BG_BLACK; fg_col = FG_BLACK; sym = PIXEL_SOLID;
+        }
+
+        CHAR_INFO c;
+        c.Attributes = bg_col | fg_col;
+        c.Char.UnicodeChar = sym;
+        return c;
     }
 
 };
