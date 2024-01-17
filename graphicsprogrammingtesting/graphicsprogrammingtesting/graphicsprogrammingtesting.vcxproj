@@ -135,6 +135,9 @@
   <ItemGroup>
     <ClInclude Include="olcConsoleGameEngine.h" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="fps_fireball1.spr" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
